@@ -317,6 +317,16 @@ b, strong {
   color: #ffffff;
 }
 
+.color-icon-mobile:after {
+  font-size: 18px;
+}
+.color-icon-mobile.active:after {
+  font-size: 18px;
+}
+.hide-icon-mobile {
+  display: none;
+}
+
 .dark-mode {
   background: #0c0c0d;
 }
@@ -479,6 +489,7 @@ b, strong {
   position: relative;
   bottom: 8px;
 }
+
 .contact-info p, .contact-info a {
   color: #f7f3f3;
 }
@@ -618,6 +629,14 @@ b, strong {
   .navbar-expand-sm .navbar-nav .nav-link {
     padding: 3px 20px;
   }
+
+  .dark-mode .navbar-collapse {
+    background: #0c0c0d;
+  }
+  .dark-mode .navbar-toggler-icon {
+    background: #ffffff;
+  }
+
 }
 @media (max-width: 580px) {
 	.animated-info {
@@ -648,6 +667,18 @@ b, strong {
   .about-icon .social-links {
     justify-content: space-evenly;
   }
+
+  .hide-icon-mobile {
+    display: block;
+  }
+
+  .dark-mode .navbar-collapse {
+    background: #0c0c0d;
+  }
+  .dark-mode .navbar-toggler-icon {
+    background: #ffffff;
+  }
+
 }
 @media (max-width: 320px) {
   .animated-text {
@@ -679,5 +710,15 @@ b, strong {
     justify-content: space-evenly;
   }
 
+  .hide-icon-mobile {
+    display: block;
+  }
+
+  .dark-mode .navbar-collapse {
+    background: #0c0c0d;
+  }
+  .dark-mode .navbar-toggler-icon {
+    background: #ffffff;
+  }
 
 }
