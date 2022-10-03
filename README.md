@@ -1,4 +1,4 @@
-# Soumyakant-Portfolio
+# Soumyakant-Portfolio ![Badge](https://visitor-counter-badge.vercel.app/api/Soumya048/Soumyakant-Portfolio/)
   Professional Portfolio
   <br>
   <br>
