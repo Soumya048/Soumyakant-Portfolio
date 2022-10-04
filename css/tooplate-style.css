@@ -135,6 +135,7 @@ b, strong {
 .dark-mode .about-icon a {
   color: #ffffff;
 }
+
 .about-icon .social-links {
   padding: 2%;
   display: flex;
@@ -576,6 +577,12 @@ b, strong {
   box-shadow: 0px 0 35px 0 rgba(0, 0, 0, 0.08);
 }
 
+/* paragraph on dark mode */
+
+.dark-mode p {
+  color: white;
+}
+
 /*
 ----------------------------------------------
     GitHub stats                             \
@@ -589,8 +596,13 @@ b, strong {
   padding: 0;
 }
 
+.dark-mode .calendar span {
+  color: #eee;
+}
+
 .section__title {
   text-align: center;
+  margin-bottom: 4%;
 }
 
 
