@@ -19,7 +19,7 @@ function sendMail() {
                 document.getElementById("email").value = "";    
                 document.getElementById("message").value = "";
                 console.log(res);
-                alert("Your message sent successfully, Thank you")
+                alert("Your message sent successfully, I will get back to you soon. Thank you")
             })
         .catch((err) => console.log(err));
     }
