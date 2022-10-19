@@ -7,9 +7,9 @@
 
   <br>
 
+---
   
-  
-  ### Teach Stacks
+  ### Teach Stacks:
   
   - HTML
   - CSS
@@ -18,7 +18,7 @@
   - jQuery
   
   
-  
+---  
   
   
   
