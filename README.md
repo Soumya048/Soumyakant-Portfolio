@@ -1,4 +1,5 @@
 # Soumyakant-Portfolio ![Badge](https://visitor-counter-badge.vercel.app/api/Soumya048/Soumyakant-Portfolio/)
+
   Professional Portfolio
   <br>
   <br>
@@ -7,5 +8,19 @@
   <br>
 
   
-  ### Credit- Tamplate from Tooplate
+  
+  ### Teach Stacks
+  
+  - HTML
+  - CSS
+  - SCSS
+  - JavaScript
+  - jQuery
+  
+  
+  
+  
+  
+  
+- Credit- Tamplate from Tooplate
 
