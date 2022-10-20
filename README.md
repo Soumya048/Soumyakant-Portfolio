@@ -14,6 +14,7 @@
   - HTML
   - CSS
   - SCSS
+  - Bootstrap 4
   - JavaScript
   - jQuery
   
