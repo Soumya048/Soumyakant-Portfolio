@@ -19,11 +19,14 @@ function sendMail() {
                 document.getElementById("email").value = "";    
                 document.getElementById("message").value = "";
                 console.log(res);
-                alert("Your message sent successfully, I will get back to you soon. Thank you")
+                showCustomAlert("Success!", "Your message sent successfully, I will get back to you soon. Thank you", true);
             })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+            console.log(err);
+            showCustomAlert("Error", "Failed to send message. Please try again later.", false);
+        });
     }
     else {
-        alert("You have entered an invalid email address!")
+        showCustomAlert("Invalid Email", "You have entered an invalid email address!", false);
     }
 }
