@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -27,9 +27,302 @@
 
     <!-- MAIN STYLE -->
     <link rel="stylesheet" href="css/tooplate-style.css">
+    <style>
+      /* Normalize icon sizes in skills/tech stack - Fix row spacing */
+      .services .row {
+        margin-bottom: -15px;
+      }
+      
+      .services .row > div {
+        margin-bottom: 15px;
+      }
+      
+      /* Remove all top margins on mobile for perfect alignment */
+      @media (max-width: 991.98px) {
+        .services .row > div[class*="col-"],
+        .services .row > [class*="col-"] {
+          margin-top: 0 !important;
+        }
+        
+        /* Target specific Bootstrap margin classes */
+        .services .row .mt-4,
+        .services .row .mt-md-0,
+        .services .row .mt-lg-0 {
+          margin-top: 0 !important;
+        }
+      }
+      
+      .services .icon {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 12px auto;
+        position: relative;
+        display: block;
+        flex-shrink: 0;
+      }
+      
+      .services .icon svg {
+        width: 70px;
+        height: 70px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .services .icon img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        display: block;
+        margin: 0;
+        padding: 0;
+      }
+      
+      /* Special sizing for larger logos (DynamoDB, Databricks) */
+      .services .icon img[src*="dynamo_db"],
+      .services .icon img[src*="Databricks"] {
+        width: 60px;
+        height: 60px;
+      }
+      
+      /* Ensure cards have uniform height and width */
+      .icon-box {
+        padding: 18px 12px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        min-height: 140px;
+      }
+      
+      .icon-box .icon {
+        flex-shrink: 0;
+      }
+      
+      .icon-box h4 {
+        margin-top: 8px;
+        margin-bottom: 0;
+        font-size: 16px;
+        line-height: 1.3;
+      }
+      
+      .icon-box h4 a {
+        word-break: break-word;
+      }
+      
+      /* Desktop - minimal spacing between rows */
+      @media (min-width: 992px) {
+        .services .row > [class*="col-"][class*="mt-4"] {
+          margin-top: 1rem !important;
+        }
+      }
+      
+      /* Scroll to Top Button */
+      .scroll-to-top-btn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+      
+      .scroll-to-top-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+      }
+      
+      .scroll-to-top-btn.show {
+        display: flex;
+      }
+      
+      /* Custom Alert Modal */
+      .custom-alert-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.3s ease;
+      }
+      
+      .custom-alert-overlay.show {
+        display: flex;
+      }
+      
+      .custom-alert-box {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        max-width: 400px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        animation: slideUp 0.3s ease;
+      }
+      
+      .custom-alert-icon {
+        margin-bottom: 20px;
+      }
+      
+      .custom-alert-icon i {
+        font-size: 60px;
+        display: none;
+      }
+      
+      .custom-alert-icon .success-icon {
+        color: #28a745;
+      }
+      
+      .custom-alert-icon .error-icon {
+        color: #dc3545;
+      }
+      
+      .custom-alert-icon .success-icon.show,
+      .custom-alert-icon .error-icon.show {
+        display: inline-block;
+      }
+      
+      .custom-alert-content h3 {
+        margin-bottom: 15px;
+        color: #333;
+        font-size: 24px;
+      }
+      
+      .custom-alert-content p {
+        color: #666;
+        margin-bottom: 25px;
+        line-height: 1.6;
+      }
+      
+      .custom-alert-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 12px 40px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+      
+      .custom-alert-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      }
+      
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      /* Color mode button on mobile - position next to hamburger */
+      .color-mode-mobile {
+        margin-right: 15px;
+      }
+      
+      .color-mode-mobile .color-mode {
+        cursor: pointer;
+        padding: 8px 12px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        display: flex;
+        align-items: center;
+        background-color: transparent !important;
+      }
+      
+      .color-mode-mobile .color-mode:hover,
+      .color-mode-mobile .color-mode:active,
+      .color-mode-mobile .color-mode:focus {
+        background-color: transparent !important;
+        outline: none;
+      }
+      
+      .color-mode-mobile .color-mode:focus-visible {
+        outline: 2px solid rgba(0, 0, 0, 0.1);
+        outline-offset: 2px;
+      }
+      
+      .color-mode-mobile .color-mode-icon {
+        font-size: 18px;
+      }
+      
+      /* Mobile-specific navbar adjustments */
+      @media (max-width: 991.98px) {
+        .navbar .container {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+        }
+        
+        .navbar-brand {
+          flex: 0 0 auto;
+        }
+        
+        .color-mode-mobile {
+          flex: 0 0 auto;
+          margin-left: auto;
+          margin-right: 10px;
+        }
+        
+        .navbar-toggler {
+          flex: 0 0 auto;
+        }
+        
+        .navbar-collapse {
+          flex: 1 1 100%;
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+      
+      /* Desktop - let Bootstrap handle the layout */
+      @media (min-width: 992px) {
+        .color-mode-mobile {
+          display: none !important;
+        }
+      }
+    </style>
     
     <!-- Site icon -->
-    <link rel = "icon" href = "images/profile-picture/letter-s (6).png" type = "image/x-icon">
+    <link rel="icon" href="images/profile-picture/letter-s (6).png" type="image/x-icon">
   
   </head>
   <body>
@@ -38,6 +331,14 @@
     <nav class="navbar navbar-expand-sm navbar-light">
         <div class="container">
             <a class="navbar-brand" href="index.html"><i class="fa-solid fa-server"></i> SOUMYAKANT</a>
+
+            <!-- Color mode button - visible on mobile -->
+            <div class="color-mode-mobile d-flex d-lg-none align-items-center">
+              <div class="color-mode d-flex justify-content-center align-items-center">
+                <i class="color-mode-icon"></i>
+                <span class="ml-2 d-none d-sm-inline">Color mode</span>
+              </div>
+            </div>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -52,25 +353,26 @@
                         <a href="#about" class="nav-link"><span data-hover="About">About</span></a>
                     </li>
                     <li class="nav-item">
+                        <a href="#experience" class="nav-link"><span data-hover="Experience">Experience</span></a>
+                    </li>
+                    <li class="nav-item">
                         <a href="#project" class="nav-link"><span data-hover="Projects">Projects</span></a>
                     </li>
                     <li class="nav-item">
                         <a href="#skill" class="nav-link"><span data-hover="Skills">Skills</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="#contact" class="nav-link"><span data-hover="Contact">Contact</span></a>
+                        <a href="#certifications" class="nav-link"><span data-hover="Certifications">Certifications</span></a>
                     </li>
-                    <li class="nav-item hide-icon-mobile">
-                      <div class="nav-link color-mode d-lg-flex justify-content-center align-items-center hide-icon-mobile">
-                        <!-- <i class="color-mode-icon color-icon-mobile"></i> -->
-                        Color mode
-                      </div>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link"><span data-hover="Contact">Contact</span></a>
                     </li>
                 </ul>
 
+                <!-- Color mode button - visible on desktop -->
                 <ul class="navbar-nav ml-lg-auto">
                     <div class="ml-lg-4">
-                      <div class="color-mode d-lg-flex justify-content-center align-items-center">
+                      <div class="color-mode d-none d-lg-flex justify-content-center align-items-center">
                         <i class="color-mode-icon"></i>
                         Color mode
                       </div>
@@ -87,7 +389,7 @@
                 
                 <div class="col-lg-7 col-md-12 col-12 d-flex align-items-center">
                     <div class="about-text">
-                        <small class="small-text">Welcome to <span class="mobile-block">my portfolio website!</span></small>
+                        <small class="small-text">Welcome to <span class="mobile-block">my portfolio!</span></small>
                         <h1 class="animated animated-text">
                             <span class="mr-2">Hey folks, I'm</span>
                             <div class="animated-info">
@@ -97,7 +399,7 @@
                             </div>
                         </h1>
 
-                        <p>Goal oriented developer. Highly energetic in backend development, web API design and web development.  Loves to work on a team and builds a successful product in a challenge.</p>
+                        <p>Dedicated Java Backend Developer with 3+ years of experience building and scaling microservices and REST APIs using Java and Spring Boot. Strong in SQL, Data Structures & Algorithms, Systems Design, and API Design. Passionate about application development and cross-functional collaboration to deliver performant, maintainable systems.</p>
                         
                         <div class="custom-btn-group mt-4">
                           <a href="https://drive.google.com/file/d/1IooIaoNci5PHcCl_Ghf63O-aji7oiGuD/view" target="_blank" class="btn mr-lg-2 custom-btn"><i class='uil uil-file-alt'></i> Download Resume</a>
@@ -138,57 +440,71 @@
                       <div class="col-lg-8 mx-auto">
                         <h2>My Projects</h2>
                       </div>
-                      <div class="owl-carousel owl-theme">
+                      <div class="row">
 
-                        <div class="item">
-                          <div style="padding: 5%;" class="project-info">
+                        <div class="col-lg-6 col-md-6 col-12 mb-4">
+                          <div style="padding: 5%;" class="project-info h-100">
+                            <h2 class="gold-color">Coupon Service (Backend) — Twinleaves</h2>
+                            <img src="images/project/Coupon Service.png" class="img-fluid" alt="Coupon Service project image" style="border-radius: 15px;">
+                            <div class="custom-btn-group mt-4">
+                              <p>A B2C/B2B backend service to create, apply, and generate coupons dynamically in real-time based on predefined configurations, supporting cart value, category-specific, brand-specific discounts, and freebies.</p>
+                              <p><span class="font-weight-bold">Outcomes: </span>Increased sales and revenue for clients through personalized promotions and enhanced customer engagement.</p>
+                              <p><span class="font-weight-bold">Tech Stack: </span> Java | Spring Boot | PostgreSQL | GCP</p>
+                              <p><span class="font-weight-bold">Timeline: </span> Jul 2023 – Oct 2024</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-12 mb-4">
+                          <div style="padding: 5%;" class="project-info h-100">
+                            <h2 class="gold-color">Purchase Service (Backend) — Twinleaves</h2>
+                            <img src="images/project/Purchase Management Service.png" class="img-fluid" alt="Purchase Management Service project image" style="border-radius: 15px;">
+                            <div class="custom-btn-group mt-4">
+                              <p>A B2B backend service to manage purchase orders, billing, payments, refunds, inventory returns, and stock transfer with an express purchase feature streamlining inward and put-away flows.</p>
+                              <p><span class="font-weight-bold">Outcomes: </span>Cost savings, improved operational efficiency, and enhanced customer satisfaction.</p>
+                              <p><span class="font-weight-bold">Tech Stack: </span> Java | Spring Boot | PostgreSQL | GCP</p>
+                              <p><span class="font-weight-bold">Timeline: </span> Nov 2022 – Oct 2024</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-12 mb-4">
+                          <div style="padding: 5%;" class="project-info h-100">
+                            <h2 class="gold-color">Third Party Layer (Backend) — Twinleaves</h2>
+                            <img src="images/project/Third Party Layer.png" class="img-fluid" alt="Third Party Layer project image" style="border-radius: 15px;">
+                            <div class="custom-btn-group mt-4">
+                              <p>A monolithic hub for third-party integrations with three modules: Tally Module (sync financial data with Tally Prime), Order Processing Module (group and forward B2C orders to logistics/OMS with reporting), and WhatsApp Order Module (enable ordering via WhatsApp).</p>
+                              <p><span class="font-weight-bold">Outcomes: </span>Expanded market reach and improved client accessibility.</p>
+                              <p><span class="font-weight-bold">Tech Stack: </span> Java | Spring Boot | PostgreSQL | GCP</p>
+                              <p><span class="font-weight-bold">Timeline: </span> Oct 2023 – Oct 2024</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-12 mb-4">
+                          <div style="padding: 5%;" class="project-info h-100">
+                            <h2 class="gold-color">Movie-Booking-Application (Backend)</h2>
+                            <img src="images/project/Movie-Booking-Application.png" class="img-fluid" alt="Movie Booking Application project image" style="border-radius: 15px;">
+                            <div class="custom-btn-group mt-4">
+                              <p>REST API for an online movie ticket booking platform with modules for Admin, Customer, Movie/Theatre, and Booking. Includes validation, session-based auth (UUID), and Swagger docs.</p>
+                              <p><span class="font-weight-bold">Outcomes: </span>Demonstrated proficiency in building scalable REST APIs with proper authentication and documentation.</p>
+                              <p><span class="font-weight-bold">Tech Stack: </span> Java | Spring Boot | Hibernate | MySQL</p>
+                              <p><span class="font-weight-bold">Timeline: </span> Built in 7 days</p>
+                              <a href="https://github.com/Soumya048/Movie-Booking-Application" target="_blank" class="btn custom-btn custom-btn-bg custom-btn-link">GitHub Link</a>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-12 mb-4">
+                          <div style="padding: 5%;" class="project-info h-100">
                             <h2 class="gold-color">Online Cab Booking Application (Backend)</h2>
-                            <img src="images/project/taxi-booking-app-development-company.jpg" class="img-fluid" alt="project image">
+                            <img src="images/project/Online Cab Booking Application.png" class="img-fluid" alt="Online Cab Booking Application project image" style="border-radius: 15px;">
                             <div class="custom-btn-group mt-4">
                               <p>A REST API for an Online Cab Booking Application. Customers can book cabs to travelling different destinations. This API performs all the fundamental CRUD operations.</p>
+                              <p><span class="font-weight-bold">Outcomes: </span>Successfully implemented a complete backend system with CRUD operations and demonstrated Spring Boot expertise.</p>
                               <p><span class="font-weight-bold">Tech Stack: </span> Java | Spring Boot | Hibernate | MySQL</p>
-                              <a href="https://drive.google.com/file/d/1usQ5vbSBYy0jDvtVyxKO0HpsppJa-kzS/view?usp=sharing" target="_blank" class="btn custom-btn custom-btn-bg custom-btn-link">Live Demo</a>
+                              <p><span class="font-weight-bold">Timeline: </span> Built in 7 days</p>
                               <a href="https://github.com/Soumya048/knowledgeable-sea-5909" target="_blank" class="btn custom-btn custom-btn-bg custom-btn-link">GitHub Link</a>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="item">
-                          <div style="padding: 5%;" class="project-info">
-                            <h2 class="gold-color">Nordstrom (Frontend)</h2>
-                            <img src="images/project/nordstrom_project.png" class="img-fluid" alt="project image">
-                            <div class="custom-btn-group mt-4">
-                              <p>This is the clone of Nordstrom e-commerce website, which is an American luxury department store chain headquartered in Seattle</p>
-                              <p><span class="font-weight-bold">Tech Stack: </span> HTML | CSS | JavaScript | Browser LocalStorage</p>
-                              <a href="https://nordstrom-clone-245a2a.netlify.app/" target="_blank" class="btn custom-btn custom-btn-bg custom-btn-link">Live Demo</a>
-                              <a href="https://github.com/Soumya048/nordstrom" target="_blank" class="btn custom-btn custom-btn-bg custom-btn-link">GitHub Link</a>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="item">
-                          <div style="padding: 5%;" class="project-info">
-                            <h2 class="gold-color">Tata 1mg (Frontend)</h2>
-                            <img src="images/project/tata1mg-project.png" class="img-fluid" alt="project image">
-                            <div class="custom-btn-group mt-4">
-                              <p>This is the clone of Tata 1mg, which is a healthcare platform. It provides services, including e-pharmacy, diagnostics, e-consultation and health content</p>
-                              <p><span class="font-weight-bold">Tech Stack: </span> HTML | CSS | JavaScript | Bootstrap | JSON server | Browser LocalStorage</p>
-                              <a href="https://beamish-florentine-720d31.netlify.app" target="_blank" class="btn custom-btn custom-btn-bg custom-btn-link">Live Demo</a>
-                              <a href="https://github.com/Soumya048/tata_1mg" target="_blank" class="btn custom-btn custom-btn-bg custom-btn-link">GitHub Link</a>
-                            </div>
-                          </div>
-                        </div>
-
-                        
-                        <div class="item">
-                          <div style="padding: 5%;" class="project-info">
-                            <h2 class="gold-color">Weather Application (Frontend)</h2>
-                            <img src="images/project/react_weather_app.png" class="img-fluid" alt="project image">
-                            <div class="custom-btn-group mt-4">
-                              <p>This is a react weather application provides weather report of current day with 7-day forecast. And shows detailed information on individual day weather forecast.</p>
-                              <p><span class="font-weight-bold">Tech Stack: </span> HTML | CSS | JavaScript | React | Rest API</p>
-                              <a href="https://weather-application-c63669.netlify.app/" target="_blank" class="btn custom-btn custom-btn-bg custom-btn-link">Live Demo</a>
-                              <a href="https://github.com/Soumya048/react-weather-app" target="_blank" class="btn custom-btn custom-btn-bg custom-btn-link">GitHub Link</a>
                             </div>
                           </div>
                         </div>
@@ -201,12 +517,12 @@
         </div>
     </section>
 
-    <!-- GitHub stats -->
-    <section class="github-stats section py-5" id="github-stats">
-      <h2 class="section__title">GitHub Stats</h2>
-      <!-- <span class="section__subtitle">Contribution on Github</span> -->
-      <div class="calendar"></div>
-    </section>
+  <!-- GitHub stats -->
+  <section class="github-stats section py-5" id="github-stats">
+    <h2 class="section__title">GitHub Stats</h2>
+    <!-- <span class="section__subtitle">Contribution on Github</span> -->
+    <div class="calendar"></div>
+  </section>
 
     <!-- =============Skill section=============== -->
 
@@ -218,59 +534,52 @@
                     <div class="col-lg-8 mx-auto">
                       <h2 class="h2-heading">My Skills</h2>
                     </div>
-                    <div class="owl-carousel owl-theme">
+                    <div>
+                      <!-- ======= skill card  Section ======= -->
+                      <section id="services" class="services">
+                        <div class="container" data-aos="fade-up">
 
-                      <div style="padding: 5%;" class="item" >
-                        <!-- ======= skill card  Section ======= -->
-                        <section id="services" class="services">
-                          <div class="container" data-aos="fade-up">
-
-                            <div class="row">
+                          <div class="row">
                               <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                                <div class="icon-box iconbox-blue">
-                                  <div class="icon">
-                                    <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                                      <img src="images/skills/rest-api-96.png" alt="Java">
-                                      <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
-                                    </svg>
-                                  </div>
-                                  <h4><a href="">Web API Design</a></h4>
+                              <div class="icon-box iconbox-blue">
+                                <div class="icon">
+                                  <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                                    <img src="images/skills/rest-api-96.png" alt="Java">
+                                    <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
+                                  </svg>
                                 </div>
+                                <h4><a href="">Web API Design</a></h4>
                               </div>
-
-                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
-                                <div class="icon-box iconbox-orange ">
-                                  <div class="icon">
-                                    <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                                      <img src="images/skills/backend.png" alt="">
-                                      <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,582.0697525312426C382.5290701553225,586.8405444964366,449.9789794690241,525.3245884688669,502.5850820975895,461.55621195738473C556.606425686781,396.0723002908107,615.8543463187945,314.28637112970534,586.6730223649479,234.56875336149918C558.9533121215079,158.8439757836574,454.9685369536778,164.00468322053177,381.49747125262974,130.76875717737553C312.15926192815925,99.40240125094834,248.97055460311594,18.661163978235184,179.8680185752513,50.54337015887873C110.5421016452524,82.52863877960104,119.82277516462835,180.83849132639028,109.12597500060166,256.43424936330496C100.08760227029461,320.3096726198365,92.17705696193138,384.0621239912766,124.79988738764834,439.7174275375508C164.83382741302287,508.01625554203684,220.96474134820875,577.5009287672846,300,582.0697525312426"></path>
-                                    </svg>
-                                  </div>
-                                  <h4><a href="">Backend Devlopment</a></h4>
-                                </div>
-                              </div>
-
-                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
-                                <div class="icon-box iconbox-pink">
-                                  <div class="icon">
-                                    <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                                      <img src="images/back-end/dsa.svg" alt="">
-                                      <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,541.5067337569781C382.14930387511276,545.0595476570109,479.8736841581634,548.3450877840088,526.4010558755058,480.5488172755941C571.5218469581645,414.80211281144784,517.5187510058486,332.0715597781072,496.52539010469104,255.14436215662573C477.37192572678356,184.95920475031193,473.57363656557914,105.61284051026155,413.0603344069578,65.22779650032875C343.27470386102294,18.654635553484475,251.2091493199835,5.337323636656869,175.0934190732945,40.62881213300186C97.87086631185822,76.43348514350839,51.98124368387456,156.15599469081315,36.44837278890362,239.84606092416172C21.716077023791087,319.22268207091537,43.775223500013084,401.1760424656574,96.891909868211,461.97329694683043C147.22146801428983,519.5804099606455,223.5754009179313,538.201503339737,300,541.5067337569781"></path>
-                                    </svg>
-                                  </div>
-                                  <h4><a href="">Datastructure and Algorithm</a></h4>
-                                </div>
-                              </div>
-
-
-
                             </div>
 
+                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+                              <div class="icon-box iconbox-orange ">
+                                <div class="icon">
+                                  <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                                    <img src="images/skills/backend.png" alt="">
+                                    <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,582.0697525312426C382.5290701553225,586.8405444964366,449.9789794690241,525.3245884688669,502.5850820975895,461.55621195738473C556.606425686781,396.0723002908107,615.8543463187945,314.28637112970534,586.6730223649479,234.56875336149918C558.9533121215079,158.8439757836574,454.9685369536778,164.00468322053177,381.49747125262974,130.76875717737553C312.15926192815925,99.40240125094834,248.97055460311594,18.661163978235184,179.8680185752513,50.54337015887873C110.5421016452524,82.52863877960104,119.82277516462835,180.83849132639028,109.12597500060166,256.43424936330496C100.08760227029461,320.3096726198365,92.17705696193138,384.0621239912766,124.79988738764834,439.7174275375508C164.83382741302287,508.01625554203684,220.96474134820875,577.5009287672846,300,582.0697525312426"></path>
+                                  </svg>
+                                </div>
+                                <h4><a href="">Backend Devlopment</a></h4>
+                              </div>
+                            </div>
+
+                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+                              <div class="icon-box iconbox-pink">
+                                <div class="icon">
+                                  <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                                    <img src="images/back-end/dsa.svg" alt="">
+                                    <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,541.5067337569781C382.14930387511276,545.0595476570109,479.8736841581634,548.3450877840088,526.4010558755058,480.5488172755941C571.5218469581645,414.80211281144784,517.5187510058486,332.0715597781072,496.52539010469104,255.14436215662573C477.37192572678356,184.95920475031193,473.57363656557914,105.61284051026155,413.0603344069578,65.22779650032875C343.27470386102294,18.654635553484475,251.2091493199835,5.337323636656869,175.0934190732945,40.62881213300186C97.87086631185822,76.43348514350839,51.98124368387456,156.15599469081315,36.44837278890362,239.84606092416172C21.716077023791087,319.22268207091537,43.775223500013084,401.1760424656574,96.891909868211,461.97329694683043C147.22146801428983,519.5804099606455,223.5754009179313,538.201503339737,300,541.5067337569781"></path>
+                                  </svg>
+                                </div>
+                                <h4><a href="">Datastructure and Algorithm</a></h4>
+                              </div>
+                            </div>
                           </div>
-                        </section>
-                        <!-- End skill card  Section -->
-                      </div>
-                </div>
+                        </div>
+                      </section>
+                      <!-- End skill card  Section -->
+                    </div>
               </div>
       </div>
   </section>
@@ -287,9 +596,9 @@
                     <div class="col-lg-8 mx-auto">
                       <h2 class="h2-heading">Tech Stacks</h2>
                     </div>
-                    <div class="owl-carousel owl-theme">
+                    <div>
 
-                      <div style="padding: 5%;" class="item" >
+                      <div style="padding: 5%;" class="mb-5" >
                         <h2 class="gold-color">Backend Skills</h2>
                         
                         <!-- ======= skill card  Section ======= -->
@@ -297,7 +606,7 @@
                           <div class="container" data-aos="fade-up">
 
                             <div class="row">
-                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                              <div class="col-lg-4 col-md-6 col-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                                 <div class="icon-box iconbox-blue">
                                   <div class="icon">
                                     <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
@@ -309,7 +618,31 @@
                                 </div>
                               </div>
 
-                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+                              <div class="col-lg-4 col-md-6 col-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="icon-box iconbox-teal">
+                                  <div class="icon">
+                                    <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                                      <img src="https://www.vectorlogo.zone/logos/golang/golang-icon.svg" alt="">
+                                      <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,566.797414625762C385.7384707136149,576.1784315230908,478.7894351017131,552.8928747891023,531.9192734346935,484.94944893311C584.6109503024035,417.5663521118492,582.489472248146,322.67544863468447,553.9536738515405,242.03673114598146C529.1557734026468,171.96086150256528,465.24506316201064,127.66468636344209,395.9583748389544,100.7403814666027C334.2173773831606,76.7482773500951,269.4350130405921,84.62216499799875,207.1952322260088,107.2889140133804C132.92018162631612,134.33871894543012,41.79353780512637,160.00259165414826,22.644507872594943,236.69541883565114C3.319112789854554,314.0945973066697,72.72355303640163,379.243833228382,124.04198916343866,440.3218312028393C172.9286146004772,498.5055451809895,224.45579914871206,558.5317968840102,300,566.797414625762"></path>
+                                    </svg>
+                                  </div>
+                                  <h4><a href="">Go</a></h4>
+                                </div>
+                              </div>
+
+                              <div class="col-lg-4 col-md-6 col-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box iconbox-pink">
+                                  <div class="icon">
+                                    <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                                      <img src="https://www.svgrepo.com/show/374016/python.svg" alt="">
+                                      <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,541.5067337569781C382.14930387511276,545.0595476570109,479.8736841581634,548.3450877840088,526.4010558755058,480.5488172755941C571.5218469581645,414.80211281144784,517.5187510058486,332.0715597781072,496.52539010469104,255.14436215662573C477.37192572678356,184.95920475031193,473.57363656557914,105.61284051026155,413.0603344069578,65.22779650032875C343.27470386102294,18.654635553484475,251.2091493199835,5.337323636656869,175.0934190732945,40.62881213300186C97.87086631185822,76.43348514350839,51.98124368387456,156.15599469081315,36.44837278890362,239.84606092416172C21.716077023791087,319.22268207091537,43.775223500013084,401.1760424656574,96.891909868211,461.97329694683043C147.22146801428983,519.5804099606455,223.5754009179313,538.201503339737,300,541.5067337569781"></path>
+                                    </svg>
+                                  </div>
+                                  <h4><a href="">Python</a></h4>
+                                </div>
+                              </div>
+
+                              <div class="col-lg-4 col-md-6 col-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
                                 <div class="icon-box iconbox-orange ">
                                   <div class="icon">
                                     <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
@@ -321,19 +654,7 @@
                                 </div>
                               </div>
 
-                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
-                                <div class="icon-box iconbox-pink">
-                                  <div class="icon">
-                                    <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                                      <img src="https://www.vectorlogo.zone/logos/hibernate/hibernate-icon.svg" alt="">
-                                      <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,541.5067337569781C382.14930387511276,545.0595476570109,479.8736841581634,548.3450877840088,526.4010558755058,480.5488172755941C571.5218469581645,414.80211281144784,517.5187510058486,332.0715597781072,496.52539010469104,255.14436215662573C477.37192572678356,184.95920475031193,473.57363656557914,105.61284051026155,413.0603344069578,65.22779650032875C343.27470386102294,18.654635553484475,251.2091493199835,5.337323636656869,175.0934190732945,40.62881213300186C97.87086631185822,76.43348514350839,51.98124368387456,156.15599469081315,36.44837278890362,239.84606092416172C21.716077023791087,319.22268207091537,43.775223500013084,401.1760424656574,96.891909868211,461.97329694683043C147.22146801428983,519.5804099606455,223.5754009179313,538.201503339737,300,541.5067337569781"></path>
-                                    </svg>
-                                  </div>
-                                  <h4><a href="">Hibernate</a></h4>
-                                </div>
-                              </div>
-
-                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
+                              <div class="col-lg-4 col-md-6 col-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
                                 <div class="icon-box iconbox-yellow">
                                   <div class="icon">
                                     <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
@@ -341,15 +662,27 @@
                                       <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,503.46388370962813C374.79870501325706,506.71871716319447,464.8034551963731,527.1746412648533,510.4981551193396,467.86667711651364C555.9287308511215,408.9015244558933,512.6030010748507,327.5744911775523,490.211057578863,256.5855673507754C471.097692560561,195.9906835881958,447.69079081568157,138.11976852964426,395.19560036434837,102.3242989838813C329.3053358748298,57.3949838291264,248.02791733380457,8.279543830951368,175.87071277845988,42.242879143198664C103.41431057327972,76.34704239035025,93.79494320519305,170.9812938413882,81.28167332365135,250.07896920659033C70.17666984294237,320.27484674793965,64.84698225790005,396.69656628748305,111.28512138212992,450.4950937839243C156.20124167950087,502.5303643271138,231.32542653798444,500.4755392045468,300,503.46388370962813"></path>
                                     </svg>
                                   </div>
-                                  <h4><a href="">MySQL</a></h4>
+                                  <h4><a href="">PostgreSQL & MySQL</a></h4>
                                 </div>
                               </div>
 
-                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
+                              <div class="col-lg-4 col-md-6 col-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box iconbox-blue">
+                                  <div class="icon">
+                                    <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                                      <img src="images/back-end/dynamo_db-image.svg" alt="">
+                                      <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
+                                    </svg>
+                                  </div>
+                                  <h4><a href="">DynamoDB</a></h4>
+                                </div>
+                              </div>
+
+                              <div class="col-lg-4 col-md-6 col-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="400">
                                 <div class="icon-box iconbox-red">
                                   <div class="icon">
                                     <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                                      <img src="https://profilinator.rishav.dev/skills-assets/amazonwebservices-original-wordmark.svg" alt="">
+                                      <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="">
                                       <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,532.3542879108572C369.38199826031484,532.3153073249985,429.10787420159085,491.63046689027357,474.5244479745417,439.17860296908856C522.8885846962883,383.3225815378663,569.1668002868075,314.3205725914397,550.7432151929288,242.7694973846089C532.6665558377875,172.5657663291529,456.2379748765914,142.6223662098291,390.3689995646985,112.34683881706744C326.66090330228417,83.06452184765237,258.84405631176094,53.51806209861945,193.32584062364296,78.48882559362697C121.61183558270385,105.82097193414197,62.805066853699245,167.19869350419734,48.57481801355237,242.6138429142374C34.843463184063346,315.3850353017275,76.69343916112496,383.4422959591041,125.22947124332185,439.3748458443577C170.7312796277747,491.8107796887764,230.57421082200815,532.3932930995766,300,532.3542879108572"></path>
                                     </svg>
                                   </div>
@@ -357,15 +690,27 @@
                                 </div>
                               </div>
 
-                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-                                <div class="icon-box iconbox-teal">
+                              <div class="col-lg-4 col-md-6 col-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="450">
+                                <div class="icon-box iconbox-red">
                                   <div class="icon">
                                     <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                                      <img src="https://www.svgrepo.com/show/374016/python.svg" alt="">
-                                      <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,566.797414625762C385.7384707136149,576.1784315230908,478.7894351017131,552.8928747891023,531.9192734346935,484.94944893311C584.6109503024035,417.5663521118492,582.489472248146,322.67544863468447,553.9536738515405,242.03673114598146C529.1557734026468,171.96086150256528,465.24506316201064,127.66468636344209,395.9583748389544,100.7403814666027C334.2173773831606,76.7482773500951,269.4350130405921,84.62216499799875,207.1952322260088,107.2889140133804C132.92018162631612,134.33871894543012,41.79353780512637,160.00259165414826,22.644507872594943,236.69541883565114C3.319112789854554,314.0945973066697,72.72355303640163,379.243833228382,124.04198916343866,440.3218312028393C172.9286146004772,498.5055451809895,224.45579914871206,558.5317968840102,300,566.797414625762"></path>
+                                      <img src="https://www.vectorlogo.zone/logos/google_cloud/google_cloud-icon.svg" alt="">
+                                      <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,532.3542879108572C369.38199826031484,532.3153073249985,429.10787420159085,491.63046689027357,474.5244479745417,439.17860296908856C522.8885846962883,383.3225815378663,569.1668002868075,314.3205725914397,550.7432151929288,242.7694973846089C532.6665558377875,172.5657663291529,456.2379748765914,142.6223662098291,390.3689995646985,112.34683881706744C326.66090330228417,83.06452184765237,258.84405631176094,53.51806209861945,193.32584062364296,78.48882559362697C121.61183558270385,105.82097193414197,62.805066853699245,167.19869350419734,48.57481801355237,242.6138429142374C34.843463184063346,315.3850353017275,76.69343916112496,383.4422959591041,125.22947124332185,439.3748458443577C170.7312796277747,491.8107796887764,230.57421082200815,532.3932930995766,300,532.3542879108572"></path>
                                     </svg>
                                   </div>
-                                  <h4><a href="">Python</a></h4>
+                                  <h4><a href="">Google Cloud Platform</a></h4>
+                                </div>
+                              </div>
+
+                              <div class="col-lg-4 col-md-6 col-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="500">
+                                <div class="icon-box iconbox-blue">
+                                  <div class="icon">
+                                    <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                                      <img src="images/back-end/Databricks_Logo.png" alt="">
+                                      <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
+                                    </svg>
+                                  </div>
+                                  <h4><a href="">Databricks</a></h4>
                                 </div>
                               </div>
 
@@ -377,7 +722,7 @@
                       </div>
 
                       <!-- front end skills section -->
-                      <div style="padding: 5%;" class="item">
+                      <div style="padding: 5%;" class="mb-5">
                         <h2 class="gold-color">Frontend Skills</h2>
                         
                         <!-- ======= skill card Section ======= -->
@@ -385,7 +730,7 @@
                           <div class="container" data-aos="fade-up">
 
                             <div class="row">
-                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                              <div class="col-lg-4 col-md-6 col-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                                 <div class="icon-box iconbox-blue">
                                   <div class="icon">
                                     <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
@@ -397,7 +742,7 @@
                                 </div>
                               </div>
 
-                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+                              <div class="col-lg-4 col-md-6 col-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
                                 <div class="icon-box iconbox-orange ">
                                   <div class="icon">
                                     <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
@@ -409,7 +754,7 @@
                                 </div>
                               </div>
 
-                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+                              <div class="col-lg-4 col-md-6 col-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
                                 <div class="icon-box iconbox-pink">
                                   <div class="icon">
                                     <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
@@ -421,7 +766,7 @@
                                 </div>
                               </div>
 
-                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
+                              <div class="col-lg-4 col-md-6 col-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
                                 <div class="icon-box iconbox-yellow">
                                   <div class="icon">
                                     <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
@@ -463,98 +808,17 @@
                         </section>
                         <!-- End skill card  Section -->
                       </div>
-
-
-
-                      <!-- Tools  -->
-                      <div style="padding: 5%;" class="item">
-                        <h2 class="gold-color">Others</h2>
-                        
-                        <!-- ======= skill card  Section ======= -->
-                        <section class="services">
-                          <div class="container" data-aos="fade-up">
-
-                            <div class="row">
-                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                                <div class="icon-box iconbox-blue">
-                                  <div class="icon">
-                                    <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                                      <img src="https://rajasekar-portfolio.netlify.app/assets/img/github.svg" alt="Java">
-                                      <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
-                                    </svg>
-                                  </div>
-                                  <h4><a href="">GitHub</a></h4>
-                                </div>
-                              </div>
-
-                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
-                                <div class="icon-box iconbox-orange ">
-                                  <div class="icon">
-                                    <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                                      <img src="https://rajasekar-portfolio.netlify.app/assets/img/git.png" alt="">
-                                      <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,582.0697525312426C382.5290701553225,586.8405444964366,449.9789794690241,525.3245884688669,502.5850820975895,461.55621195738473C556.606425686781,396.0723002908107,615.8543463187945,314.28637112970534,586.6730223649479,234.56875336149918C558.9533121215079,158.8439757836574,454.9685369536778,164.00468322053177,381.49747125262974,130.76875717737553C312.15926192815925,99.40240125094834,248.97055460311594,18.661163978235184,179.8680185752513,50.54337015887873C110.5421016452524,82.52863877960104,119.82277516462835,180.83849132639028,109.12597500060166,256.43424936330496C100.08760227029461,320.3096726198365,92.17705696193138,384.0621239912766,124.79988738764834,439.7174275375508C164.83382741302287,508.01625554203684,220.96474134820875,577.5009287672846,300,582.0697525312426"></path>
-                                    </svg>
-                                  </div>
-                                  <h4><a href="">Git</a></h4>
-                                </div>
-                              </div>
-
-                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
-                                <div class="icon-box iconbox-pink">
-                                  <div class="icon">
-                                    <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                                      <img src="https://spring.io/images/logo-spring-tools-4-c5e3ea301ba9d85444ef244449335be3.svg" alt="">
-                                      <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,541.5067337569781C382.14930387511276,545.0595476570109,479.8736841581634,548.3450877840088,526.4010558755058,480.5488172755941C571.5218469581645,414.80211281144784,517.5187510058486,332.0715597781072,496.52539010469104,255.14436215662573C477.37192572678356,184.95920475031193,473.57363656557914,105.61284051026155,413.0603344069578,65.22779650032875C343.27470386102294,18.654635553484475,251.2091493199835,5.337323636656869,175.0934190732945,40.62881213300186C97.87086631185822,76.43348514350839,51.98124368387456,156.15599469081315,36.44837278890362,239.84606092416172C21.716077023791087,319.22268207091537,43.775223500013084,401.1760424656574,96.891909868211,461.97329694683043C147.22146801428983,519.5804099606455,223.5754009179313,538.201503339737,300,541.5067337569781"></path>
-                                    </svg>
-                                  </div>
-                                  <h4><a href="">Spring Tools 4</a></h4>
-                                </div>
-                              </div>
-
-                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
-                                <div class="icon-box iconbox-yellow">
-                                  <div class="icon">
-                                    <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                                      <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg" alt="">
-                                      <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,503.46388370962813C374.79870501325706,506.71871716319447,464.8034551963731,527.1746412648533,510.4981551193396,467.86667711651364C555.9287308511215,408.9015244558933,512.6030010748507,327.5744911775523,490.211057578863,256.5855673507754C471.097692560561,195.9906835881958,447.69079081568157,138.11976852964426,395.19560036434837,102.3242989838813C329.3053358748298,57.3949838291264,248.02791733380457,8.279543830951368,175.87071277845988,42.242879143198664C103.41431057327972,76.34704239035025,93.79494320519305,170.9812938413882,81.28167332365135,250.07896920659033C70.17666984294237,320.27484674793965,64.84698225790005,396.69656628748305,111.28512138212992,450.4950937839243C156.20124167950087,502.5303643271138,231.32542653798444,500.4755392045468,300,503.46388370962813"></path>
-                                    </svg>
-                                  </div>
-                                  <h4><a href="">VS Code</a></h4>
-                                </div>
-                              </div>
-                              
-                              <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-                                <div class="icon-box iconbox-teal">
-                                  <div class="icon">
-                                    <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                                      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Netlify_logo.svg" alt="">
-                                      <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,566.797414625762C385.7384707136149,576.1784315230908,478.7894351017131,552.8928747891023,531.9192734346935,484.94944893311C584.6109503024035,417.5663521118492,582.489472248146,322.67544863468447,553.9536738515405,242.03673114598146C529.1557734026468,171.96086150256528,465.24506316201064,127.66468636344209,395.9583748389544,100.7403814666027C334.2173773831606,76.7482773500951,269.4350130405921,84.62216499799875,207.1952322260088,107.2889140133804C132.92018162631612,134.33871894543012,41.79353780512637,160.00259165414826,22.644507872594943,236.69541883565114C3.319112789854554,314.0945973066697,72.72355303640163,379.243833228382,124.04198916343866,440.3218312028393C172.9286146004772,498.5055451809895,224.45579914871206,558.5317968840102,300,566.797414625762"></path>
-                                    </svg>
-                                  </div>
-                                  <h4><a href="">Netlify</a></h4>
-                                </div>
-                              </div>
-
-
-                            </div>
-
-                          </div>
-                        </section>
-                        <!-- End tech stack card  Section -->
-                      </div>
-
-
                 </div>
               </div>
       </div>
   </section>
 
     <!-- Eduction and Experience / reusme section -->
-    <section class="resume py-5 d-lg-flex justify-content-center align-items-center" id="resume">
+    <section class="resume py-5 d-lg-flex justify-content-center align-items-center" id="experience">
         <div class="container">
             <div class="row">
 
-                <!-- <div class="col-lg-6 col-12">
+            <!-- <div class="col-lg-6 col-12">
                   <h2 class="mb-4">Experiences</h2>
 
                     <div class="timeline">
@@ -602,16 +866,61 @@
                 </div> -->
 
                 <div class="col-lg-6 col-12">
+                  <h2 class="mb-4">Experiences</h2>
+
+                  <div class="timeline">
+                    <div class="timeline-wrapper">
+                      <div class="timeline-yr">
+                        <span>2025</span>
+                      </div>
+                      <div class="timeline-info">
+                        <h3><span>Associate Software Development Engineer</span><small><a href="https://www.swiggy.com/" target="_blank" style="color: inherit;">Swiggy Limited</a></small></h3>
+                        <p>Dec 2024 – Present | Bengaluru</p>
+                        <p>• Built immersive ads in order tracking for dynamic promotions.</p>
+                        <p>• Delivered Account Statement with email; optimized Instamart queries (40m → 5m).</p>
+                        <p>• Integrated automated seller calls in Pyng.</p>
+                        <p>• Collaborated cross-functionally to ship scalable backend solutions.</p>
+                      </div>
+                    </div>
+
+                    <div class="timeline-wrapper">
+                      <div class="timeline-yr">
+                        <span>2024</span>
+                      </div>
+                      <div class="timeline-info">
+                        <h3><span>Associate Engineer</span><small><a href="https://twinleaves.co/" target="_blank" style="color: inherit;">Twinleaves Retail Ecommerce India Pvt Ltd</a></small></h3>
+                        <p>Nov 2022 – Oct 2024 | Bengaluru</p>
+                        <p>• Led backend services for Purchase Management, Coupon, and Third Party Layer.</p>
+                        <p>• Enforced SOLID and design patterns; guided scalable architecture decisions.</p>
+                        <p>• Designed efficient data models and REST APIs; drove code reviews.</p>
+                      </div>
+                    </div>
+
+                    <div class="timeline-wrapper">
+                      <div class="timeline-yr">
+                        <span>2022</span>
+                      </div>
+                      <div class="timeline-info">
+                        <h3><span>Full Stack Web Developer (Intern)</span><small>Masai School</small></h3>
+                        <p>Feb 2022 – Nov 2022 | Bengaluru</p>
+                        <p>• 2160+ hours across DSA, HTML, CSS, JS, Core Java, JDBC, Hibernate, MySQL, Spring, Spring Boot.</p>
+                        <p>• Projects: Nordstrom, Tata 1mg (frontend); Online Cab Booking, Movie Booking (backend).</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-12">
                   <h2 class="mb-4 mobile-mt-2">Educations</h2>
 
                     <div class="timeline">
-                        <div class="timeline-wrapper">
+                <div class="timeline-wrapper">
                              <div class="timeline-yr">
                                   <span>2022</span>
                              </div>
                              <div class="timeline-info">
-                                  <h3><span>Masai School</span><small>Java Backend Development</small></h3>
-                                  <p>Feb 2022 - Present | Full-Time</p>
+                                  <h3><span>Masai School</span><small>Full Stack Web Development</small></h3>
+                      <p>Feb 2022 – Nov 2022 | Full-Time</p>
                                   <!-- <p> Full-Time </p> -->
                              </div>
                         </div>
@@ -622,7 +931,7 @@
                             </div>
                             <div class="timeline-info">
                                 <h3><span>Parala Maharaja Engineering College</span><small>Bachelor of Technology(B.Tech)</small></h3>
-                                <p> Aug 2017 – Sept 2021 | Berhampur, Odisha
+                    <p> Aug 2017 – Sep 2021 | Berhampur, Odisha
                                   Mechanical Engineering | Full-Time</p>
                             </div>
                         </div>
@@ -644,6 +953,34 @@
         </div>
     </section>
 
+    <!-- Certifications & Achievements -->
+    <section class="project py-5" id="certifications">
+      <div  class="container">
+        <div class="row">
+          <div class="col-lg-11 text-center mx-auto col-12">
+            <div class="col-lg-8 mx-auto">
+              <h2 class="h2-heading">Certifications & Achievements</h2>
+            </div>
+            <div class="row" style="text-align: left; margin-top: 16px;">
+              <div class="col-lg-6 col-md-6 col-12">
+                <h4>Certificates</h4>
+                <p>• <a href="https://www.freecodecamp.org/certification/fcca6875244-77ce-4373-8796-ba5b71955aca/javascript-algorithms-and-data-structures" target="_blank" style="color: inherit; text-decoration: underline;">JavaScript Algorithms and Data Structures — freeCodeCamp (Jul 2022)</a></p>
+                <p>• <a href="https://www.credly.com/badges/1e1e6142-4327-400a-b2af-f3f2cb5137ab/public_url" target="_blank" style="color: inherit; text-decoration: underline;">Google Data Analytics Professional Certificate — Coursera (Jan 2022)</a></p>
+                <p>• <a href="https://www.credly.com/badges/8d00ac73-e5b5-4d70-bcb7-fad90aaa2e04/public_url" target="_blank" style="color: inherit; text-decoration: underline;">SAP Certified Application Associate - Procurement with SAP ERP 6.0 EhP7 — SAP (Apr 2021)</a></p>
+              </div>
+              <div class="col-lg-6 col-md-6 col-12">
+                <h4>Achievements</h4>
+                <p>• <a href="https://drive.google.com/file/d/1pONgLZ065xvJIf3wg3dauyzkjBI2o-Bz/view" target="_blank" style="color: inherit; text-decoration: underline;">Employee of the Year (2023), Twinleaves — Dec 2023</a></p>
+                <p>• <a href="https://drive.google.com/file/d/1rOvYsA_izoHd2iAbU5vxqA66jTG1rXjC/view" target="_blank" style="color: inherit; text-decoration: underline;">DSA Ninja Award, Masai School — Jul 2022</a></p>
+                <p>• <a href="https://drive.google.com/file/d/1pHjrDMju-G1ogjW-EiiXi2-7wXq4yEO6/view" target="_blank" style="color: inherit; text-decoration: underline;">Full Stack Web Developer, Masai School (Full-Time)</a></p>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- CONTACT -->
     <section class="contact py-5" id="contact">
       <div class="container">
@@ -652,7 +989,7 @@
           <div class="col-lg-5 mr-lg-5 col-12">
             <div class="google-map w-100">
              <!-- https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d239486.63419476867!2d85.68036443968153!3d20.301150448459367!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1909d2d5170aa5%3A0xfc580e2b68b33fa8!2sBhubaneswar%2C%20Odisha!5e0!3m2!1sen!2sin!4v1660848674095!5m2!1sen!2sin -->
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15009.203389938713!2d82.77110336911147!3d19.869514466594836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a251909c69e5a97%3A0x2330fdd17e64f6e7!2sDharmagarh%2C%20Odisha%20766015!5e0!3m2!1sen!2sin!4v1660848545628!5m2!1sen!2sin" width="400" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+              <iframe src="https://www.google.com/maps?q=Bengaluru&output=embed" width="400" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
             </div>
 
             <div class="contact-info d-flex justify-content-between align-items-center py-4 px-lg-5">
@@ -689,7 +1026,7 @@
                   </div>
 
                   <div class="ml-lg-auto col-lg-5 col-12">
-                    <input type="submit" class="form-control submit-btn" value="Send Button" onclick="sendMail()">
+                    <input type="submit" class="form-control submit-btn" value="Send" onclick="sendMail()">
                   </div>
                 </div>
               </form>
@@ -714,6 +1051,26 @@
           </div>
      </footer>
 
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top-btn" title="Go to top">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Custom Alert Modal -->
+    <div id="customAlert" class="custom-alert-overlay">
+      <div class="custom-alert-box">
+        <div class="custom-alert-icon">
+          <i class="fa-solid fa-check-circle success-icon"></i>
+          <i class="fa-solid fa-exclamation-circle error-icon"></i>
+        </div>
+        <div class="custom-alert-content">
+          <h3 id="alertTitle"></h3>
+          <p id="alertMessage"></p>
+        </div>
+        <button class="custom-alert-btn" onclick="closeCustomAlert()">OK</button>
+      </div>
+    </div>
+
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -735,5 +1092,60 @@
 
     <!-- for Email Js -->
     <script src="js/tooplate-script.js"></script>
+    
+    <!-- Scroll to Top and Custom Alert Scripts -->
+    <script>
+      // Scroll to Top Button
+      const scrollToTopBtn = document.getElementById('scrollToTop');
+      
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          scrollToTopBtn.classList.add('show');
+        } else {
+          scrollToTopBtn.classList.remove('show');
+        }
+      });
+      
+      scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+      
+      // Custom Alert Functions
+      function showCustomAlert(title, message, isSuccess = true) {
+        const alert = document.getElementById('customAlert');
+        const alertTitle = document.getElementById('alertTitle');
+        const alertMessage = document.getElementById('alertMessage');
+        const successIcon = document.querySelector('.success-icon');
+        const errorIcon = document.querySelector('.error-icon');
+        
+        alertTitle.textContent = title;
+        alertMessage.textContent = message;
+        
+        if (isSuccess) {
+          successIcon.classList.add('show');
+          errorIcon.classList.remove('show');
+        } else {
+          errorIcon.classList.add('show');
+          successIcon.classList.remove('show');
+        }
+        
+        alert.classList.add('show');
+      }
+      
+      function closeCustomAlert() {
+        const alert = document.getElementById('customAlert');
+        alert.classList.remove('show');
+      }
+      
+      // Close alert when clicking outside
+      document.getElementById('customAlert').addEventListener('click', (e) => {
+        if (e.target.id === 'customAlert') {
+          closeCustomAlert();
+        }
+      });
+    </script>
   </body>
 </html>
