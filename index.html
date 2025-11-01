@@ -28,11 +28,103 @@
     <!-- MAIN STYLE -->
     <link rel="stylesheet" href="css/tooplate-style.css">
     <style>
-      /* Normalize icon sizes in skills/tech stack */
-      .services .icon svg { width: 64px; height: 64px; }
-      .services .icon img { width: 48px; height: 48px; object-fit: contain; display: block; margin: 0 auto; }
-      /* Ensure cards adapt nicely */
-      .icon-box { padding: 24px; }
+      /* Normalize icon sizes in skills/tech stack - Fix row spacing */
+      .services .row {
+        margin-bottom: -15px;
+      }
+      
+      .services .row > div {
+        margin-bottom: 15px;
+      }
+      
+      /* Remove all top margins on mobile for perfect alignment */
+      @media (max-width: 991.98px) {
+        .services .row > div[class*="col-"],
+        .services .row > [class*="col-"] {
+          margin-top: 0 !important;
+        }
+        
+        /* Target specific Bootstrap margin classes */
+        .services .row .mt-4,
+        .services .row .mt-md-0,
+        .services .row .mt-lg-0 {
+          margin-top: 0 !important;
+        }
+      }
+      
+      .services .icon {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 12px auto;
+        position: relative;
+        display: block;
+        flex-shrink: 0;
+      }
+      
+      .services .icon svg {
+        width: 70px;
+        height: 70px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .services .icon img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        display: block;
+        margin: 0;
+        padding: 0;
+      }
+      
+      /* Special sizing for larger logos (DynamoDB, Databricks) */
+      .services .icon img[src*="dynamo_db"],
+      .services .icon img[src*="Databricks"] {
+        width: 60px;
+        height: 60px;
+      }
+      
+      /* Ensure cards have uniform height and width */
+      .icon-box {
+        padding: 18px 12px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        min-height: 140px;
+      }
+      
+      .icon-box .icon {
+        flex-shrink: 0;
+      }
+      
+      .icon-box h4 {
+        margin-top: 8px;
+        margin-bottom: 0;
+        font-size: 16px;
+        line-height: 1.3;
+      }
+      
+      .icon-box h4 a {
+        word-break: break-word;
+      }
+      
+      /* Desktop - minimal spacing between rows */
+      @media (min-width: 992px) {
+        .services .row > [class*="col-"][class*="mt-4"] {
+          margin-top: 1rem !important;
+        }
+      }
       
       /* Scroll to Top Button */
       .scroll-to-top-btn {
@@ -160,6 +252,64 @@
           transform: translateY(0);
         }
       }
+      
+      /* Color mode button on mobile - position next to hamburger */
+      .color-mode-mobile {
+        margin-right: 15px;
+      }
+      
+      .color-mode-mobile .color-mode {
+        cursor: pointer;
+        padding: 8px 12px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        display: flex;
+        align-items: center;
+      }
+      
+      .color-mode-mobile .color-mode:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+      
+      .color-mode-mobile .color-mode-icon {
+        font-size: 18px;
+      }
+      
+      /* Mobile-specific navbar adjustments */
+      @media (max-width: 991.98px) {
+        .navbar .container {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+        }
+        
+        .navbar-brand {
+          flex: 0 0 auto;
+        }
+        
+        .color-mode-mobile {
+          flex: 0 0 auto;
+          margin-left: auto;
+          margin-right: 10px;
+        }
+        
+        .navbar-toggler {
+          flex: 0 0 auto;
+        }
+        
+        .navbar-collapse {
+          flex: 1 1 100%;
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+      
+      /* Desktop - let Bootstrap handle the layout */
+      @media (min-width: 992px) {
+        .color-mode-mobile {
+          display: none !important;
+        }
+      }
     </style>
     
     <!-- Site icon -->
@@ -172,6 +322,14 @@
     <nav class="navbar navbar-expand-sm navbar-light">
         <div class="container">
             <a class="navbar-brand" href="index.html"><i class="fa-solid fa-server"></i> SOUMYAKANT</a>
+
+            <!-- Color mode button - visible on mobile -->
+            <div class="color-mode-mobile d-flex d-lg-none align-items-center">
+              <div class="color-mode d-flex justify-content-center align-items-center">
+                <i class="color-mode-icon"></i>
+                <span class="ml-2 d-none d-sm-inline">Color mode</span>
+              </div>
+            </div>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -200,17 +358,12 @@
                     <li class="nav-item">
                         <a href="#contact" class="nav-link"><span data-hover="Contact">Contact</span></a>
                     </li>
-                    <li class="nav-item hide-icon-mobile">
-                      <div class="nav-link color-mode d-lg-flex justify-content-center align-items-center hide-icon-mobile">
-                        <!-- <i class="color-mode-icon color-icon-mobile"></i> -->
-                        Color mode
-                      </div>
-                    </li>
                 </ul>
 
+                <!-- Color mode button - visible on desktop -->
                 <ul class="navbar-nav ml-lg-auto">
                     <div class="ml-lg-4">
-                      <div class="color-mode d-lg-flex justify-content-center align-items-center">
+                      <div class="color-mode d-none d-lg-flex justify-content-center align-items-center">
                         <i class="color-mode-icon"></i>
                         Color mode
                       </div>
@@ -508,7 +661,7 @@
                                 <div class="icon-box iconbox-blue">
                                   <div class="icon">
                                     <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                                      <img src="images/back-end/dynamo_db-image.svg" alt="" style="width: 80px; height: 80px; object-fit: contain;">
+                                      <img src="images/back-end/dynamo_db-image.svg" alt="">
                                       <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
                                     </svg>
                                   </div>
@@ -544,7 +697,7 @@
                                 <div class="icon-box iconbox-blue">
                                   <div class="icon">
                                     <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                                      <img src="images/back-end/Databricks_Logo.png" alt="" style="width: 80px; height: 80px; object-fit: contain;">
+                                      <img src="images/back-end/Databricks_Logo.png" alt="">
                                       <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
                                     </svg>
                                   </div>
